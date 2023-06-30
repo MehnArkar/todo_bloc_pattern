@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_bloc_pattern/blocs/todos/todos_bloc.dart';
+import 'package:todo_bloc_pattern/blocs/todos/todos_state.dart';
 import '/models/models.dart';
 import '/screens/screens.dart';
 
@@ -25,14 +27,36 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
+      body: BlocBuilder<TodosBloc,TodosState>(
+        builder: (context,state) {
+          if(state is TodoLoading){
+            return const Center(child: CircularProgressIndicator(),);
+          }
+
+          if(state is TodoLoaded) {
+            return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const Text('Pending To dos',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                  ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: state.todos.length,
+                      itemBuilder: (context,index){
+                        return _todosCard(context, state.todos[index]);
+                      })
                 ],
               ),
-            )
+            );
+          }else{
+            return Center(child: Text('Somethings went wrong'),);
+          }
+        }
+      )
     );
   }
 
