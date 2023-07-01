@@ -27,7 +27,11 @@ class TodosBloc extends Bloc<TodosEvent,TodosState>{
 
   }
   _onDeleteTodo(DeleteTodo event,Emitter<TodosState> emit){
-
+    final state = this.state;
+    if(state is TodoLoaded){
+      List<Todo> newList = state.todos.where((element) => element.id!=event.todos.id).toList();
+      emit(TodoLoaded(todos: newList));
+    }
   }
 
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_bloc_pattern/blocs/todos/todos_bloc.dart';
+import 'package:todo_bloc_pattern/blocs/todos/todos_event.dart';
 import 'package:todo_bloc_pattern/blocs/todos/todos_state.dart';
 import '/models/models.dart';
 import '/screens/screens.dart';
@@ -118,6 +119,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
+                        context.read<TodosBloc>().add(DeleteTodo(todos: todo));
                       },
                       icon: const Icon(Icons.cancel),
                     ),
