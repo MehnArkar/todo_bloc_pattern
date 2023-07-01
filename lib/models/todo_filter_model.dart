@@ -1,0 +1,1 @@
+enum TodosFilter {all,complete,canceled,pending}

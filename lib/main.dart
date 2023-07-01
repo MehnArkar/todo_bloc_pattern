@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_bloc_pattern/blocs/filter/filter_bloc.dart';
 import 'package:todo_bloc_pattern/blocs/todos/todos_event.dart';
 import 'package:todo_bloc_pattern/models/models.dart';
 import '/screens/screens.dart';
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
         Todo(id: '2', task: 'Todo 2', description: 'do now')
             ])
         )
-        )
+        ),
+        BlocProvider(create: (context)=>FilterBloc(todosBloc: BlocProvider.of<TodosBloc>(context)))
       ],
       child:  MaterialApp(
           title: 'BloC Pattern - Todos',

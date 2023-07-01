@@ -25,9 +25,9 @@ class AddTodo extends TodosEvent{
   List<Object> get props => [todos];
 }
 
-class UpdateTodo extends TodosEvent{
+class UpdateTodos extends TodosEvent{
   final Todo todos;
-  const UpdateTodo({required this.todos});
+  const UpdateTodos({required this.todos});
 
   @override
   List<Object> get props => [todos];

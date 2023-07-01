@@ -7,7 +7,7 @@ class TodosBloc extends Bloc<TodosEvent,TodosState>{
   TodosBloc():super(TodoLoading()){
     on<LoadTodos>(_onLoadTodos);
     on<AddTodo>(_onAddTodo);
-    on<UpdateTodo>(_onUpdateTodo);
+    on<UpdateTodos>(_onUpdateTodo);
     on<DeleteTodo>(_onDeleteTodo);
   }
 
@@ -23,7 +23,15 @@ class TodosBloc extends Bloc<TodosEvent,TodosState>{
     }
 
   }
-  _onUpdateTodo(UpdateTodo event,Emitter<TodosState> emit){
+  _onUpdateTodo(UpdateTodos event,Emitter<TodosState> emit){
+    final state = this.state;
+    if(state is TodoLoaded){
+      final List<Todo> newList = state.todos.map((e) {
+        return e.id==event.todos.id?event.todos:e;
+      }).toList();
+
+      emit(TodoLoaded(todos: newList));
+    }
 
   }
   _onDeleteTodo(DeleteTodo event,Emitter<TodosState> emit){
